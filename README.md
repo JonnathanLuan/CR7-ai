@@ -1,42 +1,67 @@
 # 🤖 CR7 AI
 
-> Um assistente virtual inteligente desenvolvido em Python, com arquitetura modular baseada em Core, Plugins e Agentes.
+> **Uma plataforma de Inteligência Artificial modular desenvolvida em Python para atuar como assistente pessoal, programador, pesquisador e executor de tarefas.**
+
+![Status](https://img.shields.io/badge/status-Em%20Desenvolvimento-orange)
+![Python](https://img.shields.io/badge/Python-3.11+-blue)
+![Version](https://img.shields.io/badge/version-0.3%20Alpha-green)
 
 ---
 
 # 📖 Sobre
 
-O CR7 AI é um projeto pessoal desenvolvido com o objetivo de criar um assistente virtual capaz de aprender, executar tarefas no computador, pesquisar informações, utilizar inteligência artificial e evoluir continuamente através de uma arquitetura organizada.
+O **CR7 AI** é um projeto de Inteligência Artificial criado para evoluir continuamente através de uma arquitetura modular baseada em **Core**, **Agentes**, **Ferramentas** e **Plugins**.
 
-O projeto foi desenvolvido pensando em crescimento a longo prazo, permitindo a criação de novos módulos sem alterar o núcleo da aplicação.
+Mais do que um chatbot, o objetivo do CR7 AI é tornar-se uma plataforma completa capaz de auxiliar pessoas em programação, organização pessoal, estudos, pesquisas e automação de tarefas.
+
+Todo o projeto está sendo desenvolvido com foco em organização, escalabilidade e aprendizado contínuo.
 
 ---
 
-# 🎯 Objetivos
+# ✨ Objetivos
 
-- Criar um assistente inteligente em Python
-- Aprender novas informações
-- Controlar o computador
-- Executar comandos por voz
-- Pesquisar na internet
-- Trabalhar com Inteligência Artificial
-- Possuir memória persistente
-- Evoluir através de plugins
-- Utilizar agentes especializados
-- Tornar-se uma plataforma completa de IA
+O CR7 AI está sendo desenvolvido para ser capaz de:
+
+- 🧠 Aprender continuamente
+- 💬 Conversar naturalmente
+- 👤 Atuar como assistente pessoal
+- 👨‍💻 Auxiliar no desenvolvimento de software
+- 📚 Pesquisar informações
+- 🌐 Utilizar serviços online
+- 🎙 Conversar por voz
+- 👁 Interpretar imagens e documentos
+- 🖥 Automatizar tarefas do computador
+- 🔌 Trabalhar através de plugins
+- 🤖 Utilizar agentes especializados
 
 ---
 
 # 🏗 Arquitetura
 
 ```
-CR7
+CR7 AI
 │
 ├── Core
-│
-├── Plugins
+│   ├── IA
+│   ├── Memória
+│   ├── NLP
+│   └── Configuração
 │
 ├── Agentes
+│   ├── Programador
+│   ├── Pesquisador
+│   ├── Escritor
+│   ├── Planejador
+│   └── ...
+│
+├── Ferramentas
+│   ├── AST
+│   ├── Arquivos
+│   ├── Git
+│   ├── Terminal
+│   └── ...
+│
+├── Plugins
 │
 ├── Dados
 │
@@ -47,27 +72,21 @@ CR7
 
 ---
 
-# 📁 Estrutura do Projeto
+# 📁 Estrutura
 
 ```
-CR7/
+CR7-AI/
 │
 ├── app.py
 ├── config.py
 ├── requirements.txt
 │
 ├── core/
-│
-├── plugins/
-│
 ├── agentes/
-│
+├── plugins/
 ├── dados/
-│
 ├── docs/
-│
 ├── testes/
-│
 └── logs/
 ```
 
@@ -75,72 +94,188 @@ CR7/
 
 # 🚀 Funcionalidades atuais
 
-- Memória persistente
-- Histórico de conversas
-- NLP próprio
-- Detector de intenções
-- Extrator de informações
-- Sistema de Plugins
-- Gerenciador de Plugins
-- Controle de programas do Windows
-- Aprendizado de informações genéricas
+## 🧠 Núcleo
+
+- ✅ Memória permanente
+- ✅ Histórico de conversas
+- ✅ Personalidade
+- ✅ Persistência em JSON
 
 ---
 
-# 🚧 Roadmap
+## 💬 NLP
 
-## Versão 0.1 Alpha
+- ✅ Normalizador
+- ✅ Detector de intenções
+- ✅ Extrator de informações
+- ✅ Executor de intenções
+- ✅ Aprendizado de informações
 
-- Estrutura inicial
-- Memória
-- Histórico
+---
 
-## Versão 0.2 Alpha
+## 👨‍💻 Agente Programador
 
-- NLP
-- Intenções
-- Extratores
-- Executor
-- Informações genéricas
+- ✅ Leitura de arquivos Python
+- ✅ Análise utilizando AST
+- ✅ Contagem de funções
+- ✅ Contagem de classes
+- ✅ Contagem de importações
+- ✅ Sistema de sugestões
+- ✅ Arquitetura modular
 
-## Versão 0.3 Alpha (em desenvolvimento)
+---
 
-- Plugins
-- Gerenciador de Plugins
-- Arquitetura de Agentes
-- Git
-- Documentação
+# 🚧 Em desenvolvimento
 
-## Futuro
+- Explicação inteligente de funções
+- Relatórios de código
+- Melhorias automáticas
+- Documentação automática
+- Refatoração assistida
 
-- Voz
-- Visão Computacional
-- Internet
-- API própria
-- Aplicativo Mobile
-- Smartwatch
-- Autoatualização supervisionada
-- Inteligência Artificial integrada
+---
+
+# 🔮 Funcionalidades planejadas
+
+## 🎙 Assistente de Voz
+
+- Reconhecimento de fala
+- Síntese de voz
+- Palavra de ativação
+- Conversação contínua
+
+### 👤 Assistente Pessoal
+
+- Agenda
+- Calendário
+- Lista de tarefas
+- Lembretes
+- Organização diária
+- Rotinas inteligentes
+
+### 🌐 Inteligência Online
+
+- Pesquisa na internet
+- Notícias
+- Clima
+- APIs
+- Busca em documentação
+
+### 👁 Visão Computacional
+
+- OCR
+- Leitura de imagens
+- Leitura de PDFs
+- Captura de tela
+- Interpretação de gráficos
+
+### 🖥 Automação
+
+- Controle do Windows
+- VS Code
+- Terminal
+- Navegador
+- Gerenciamento de arquivos
+
+### 🧠 Inteligência
+
+- Memória de longo prazo
+- Contexto entre conversas
+- Aprendizado supervisionado
+- Perfis de usuários
+- Personalidades configuráveis
+
+### 🤖 Sistema de Agentes
+
+- Agente Programador
+- Agente Pesquisador
+- Agente Escritor
+- Agente Professor
+- Agente Planejador
+- Agente Analista
+- Agente Financeiro
+
+### 🔌 Plugins
+
+- Instalação dinâmica
+- Atualização automática
+- Plugins oficiais
+- Plugins da comunidade
+
+### 📱 Plataformas
+
+- Desktop
+- Web
+- Android
+- iOS
+- API REST
+
+---
+
+# 📚 Documentação
+
+A documentação do projeto está organizada nos seguintes arquivos:
+
+| Documento | Descrição |
+|-----------|-----------|
+| README.md | Visão geral do projeto |
+| CHANGELOG.md | Histórico das versões |
+| ROADMAP.md | Planejamento das próximas versões |
+
+Documentação em desenvolvimento:
+
+- VISION.md
+- ARCHITECTURE.md
+- AGENTS.md
+- DEVLOG.md
 
 ---
 
 # 🛠 Tecnologias
+
+Atualmente
 
 - Python
 - JSON
 - Git
 - GitHub
 
+Planejado
+
+- SQLite
+- FastAPI
+- Ollama
+- OpenAI API
+- Speech Recognition
+- Text-to-Speech
+
+---
+
+# 🎯 Objetivo Final
+
+Construir uma plataforma completa de Inteligência Artificial capaz de atuar como:
+
+- Assistente Pessoal
+- Programador
+- Pesquisador
+- Professor
+- Organizador
+- Executor de tarefas
+
+Tudo isso através de uma arquitetura modular baseada em **Core**, **Agentes** e **Plugins**.
+
 ---
 
 # 👨‍💻 Autor
 
-Projeto desenvolvido por Jonnathan Luan.
+**Jonnathan Luan**
 
-Com apoio do ChatGPT como assistente de arquitetura e desenvolvimento.
+Projeto desenvolvido em Python.
+
+Arquitetura e desenvolvimento com apoio do ChatGPT.
 
 ---
 
 # 📄 Licença
 
-Este projeto encontra-se em desenvolvimento.
+Este projeto encontra-se em desenvolvimento e ainda não possui uma licença definitiva.

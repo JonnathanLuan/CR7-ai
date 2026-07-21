@@ -1,3 +1,4 @@
+from agentes.ferramentas.analisador_detalhes_funcoes import analisar_funcoes
 from agentes.ferramentas.programador import analisar_codigo
 
 

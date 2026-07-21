@@ -1,5 +1,3 @@
-import ast
-
 from agentes.ferramentas.analisador_codigo import gerar_arvore
 from agentes.ferramentas.analisador_funcoes import (
     obter_funcoes,
@@ -8,6 +6,7 @@ from agentes.ferramentas.analisador_funcoes import (
 from agentes.ferramentas.analisador_classes import obter_classes
 from agentes.ferramentas.analisador_imports import obter_importacoes
 from agentes.ferramentas.analisador_complexidade import obter_sugestoes
+from agentes.ferramentas.analisador_detalhes_funcoes import analisar_funcoes
 
 
 MENSAGEM_SOLICITAR_CODIGO = (
@@ -38,11 +37,9 @@ def analisar_codigo(codigo):
     quantidade_linhas = len(codigo.splitlines())
 
     funcoes = obter_funcoes(arvore)
-
+    detalhes_funcoes = analisar_funcoes(arvore)
     classes = obter_classes(arvore)
-
     importacoes = obter_importacoes(arvore)
-
     funcoes_grandes = obter_funcoes_grandes(arvore)
 
     sugestoes = obter_sugestoes(
@@ -59,6 +56,33 @@ def analisar_codigo(codigo):
         for item in sugestoes
     )
 
+    relatorios_funcoes = []
+
+    for funcao in detalhes_funcoes:
+
+        parametros = ", ".join(funcao["parametros"])
+
+        if not parametros:
+            parametros = "nenhum"
+
+        possui_docstring = (
+            "Sim"
+            if funcao["possui_docstring"]
+            else "Não"
+        )
+
+        relatorios_funcoes.append(
+            f"Função: {funcao['nome']}\n"
+            f"Linhas: {funcao['quantidade_linhas']}\n"
+            f"Parâmetros: {parametros}\n"
+            f"Docstring: {possui_docstring}"
+        )
+
+    if relatorios_funcoes:
+        texto_detalhes_funcoes = "\n\n".join(relatorios_funcoes)
+    else:
+        texto_detalhes_funcoes = "Nenhuma função encontrada."
+
     return (
         "Análise concluída.\n\n"
         f"Linhas de código: {quantidade_linhas}\n"
@@ -66,5 +90,7 @@ def analisar_codigo(codigo):
         f"Classes encontradas: {len(classes)} ({nomes_classes})\n"
         f"Importações encontradas: {len(importacoes)}\n\n"
         "Sugestões:\n"
-        f"{texto_sugestoes}"
+        f"{texto_sugestoes}\n\n"
+        "Detalhes das funções:\n"
+        f"{texto_detalhes_funcoes}"
     )
