@@ -1,0 +1,102 @@
+[
+    {
+        "data": "19/07/2026 21:39:26",
+        "usuario": "qual é meu nome",
+        "orion": "Seu nome é João Pedro."
+    },
+    {
+        "data": "20/07/2026 18:51:18",
+        "usuario": "abra o bloco de notas",
+        "orion": "Abrindo bloco de notas."
+    },
+    {
+        "data": "20/07/2026 18:51:38",
+        "usuario": "abra a calculadora",
+        "orion": "Abrindo calculadora."
+    },
+    {
+        "data": "20/07/2026 18:52:36",
+        "usuario": "abra o paint",
+        "orion": "Abrindo paint."
+    },
+    {
+        "data": "20/07/2026 19:14:02",
+        "usuario": "abra a calculadora",
+        "orion": "Abrindo calculadora."
+    },
+    {
+        "data": "20/07/2026 19:14:12",
+        "usuario": "abra o paint",
+        "orion": "Abrindo paint."
+    },
+    {
+        "data": "20/07/2026 19:34:59",
+        "usuario": "abra a calculadora",
+        "orion": "Abrindo calculadora."
+    },
+    {
+        "data": "20/07/2026 19:35:14",
+        "usuario": "abra o pait",
+        "orion": "Não encontrei o programa pait."
+    },
+    {
+        "data": "20/07/2026 19:35:45",
+        "usuario": "abra o paint",
+        "orion": "Abrindo paint."
+    },
+    {
+        "data": "20/07/2026 20:34:26",
+        "usuario": "olá",
+        "orion": "Essa informação ainda não faz parte da minha memória."
+    },
+    {
+        "data": "20/07/2026 20:34:42",
+        "usuario": "qual é meu nome",
+        "orion": "Seu nome é João Pedro."
+    },
+    {
+        "data": "20/07/2026 20:34:47",
+        "usuario": "onde eu moro",
+        "orion": "Você mora em Recife."
+    },
+    {
+        "data": "20/07/2026 20:34:52",
+        "usuario": "abra a calculadora",
+        "orion": "Abrindo calculadora."
+    },
+    {
+        "data": "20/07/2026 20:38:46",
+        "usuario": "olá",
+        "orion": "Oi!"
+    },
+    {
+        "data": "20/07/2026 20:38:54",
+        "usuario": "bom dia",
+        "orion": "Olá!"
+    },
+    {
+        "data": "20/07/2026 20:45:19",
+        "usuario": "olá",
+        "orion": "Olá! Como posso ajudar?"
+    },
+    {
+        "data": "20/07/2026 20:45:27",
+        "usuario": "qual meu nome",
+        "orion": "Seu nome é João Pedro."
+    },
+    {
+        "data": "20/07/2026 20:45:35",
+        "usuario": "onde eu moro",
+        "orion": "Você mora em Recife."
+    },
+    {
+        "data": "20/07/2026 20:45:41",
+        "usuario": "abra o paint",
+        "orion": "Abrindo paint."
+    },
+    {
+        "data": "20/07/2026 20:53:17",
+        "usuario": "analise meu codigo",
+        "orion": "Posso analisar seu código, encontrar problemas, sugerir melhorias e explicar cada parte."
+    }
+]
