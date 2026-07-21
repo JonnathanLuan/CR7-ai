@@ -1,6 +1,13 @@
 import ast
 
 from agentes.ferramentas.analisador_codigo import gerar_arvore
+from agentes.ferramentas.analisador_funcoes import (
+    obter_funcoes,
+    obter_funcoes_grandes,
+)
+from agentes.ferramentas.analisador_classes import obter_classes
+from agentes.ferramentas.analisador_imports import obter_importacoes
+from agentes.ferramentas.analisador_complexidade import obter_sugestoes
 
 
 MENSAGEM_SOLICITAR_CODIGO = (
@@ -10,12 +17,12 @@ MENSAGEM_SOLICITAR_CODIGO = (
 
 
 def analisar_codigo(codigo):
+
     if codigo is None or not str(codigo).strip():
         return MENSAGEM_SOLICITAR_CODIGO
 
     codigo = str(codigo)
 
-    # Gera a árvore sintática
     arvore, erro = gerar_arvore(codigo)
 
     if erro:
@@ -30,64 +37,26 @@ def analisar_codigo(codigo):
 
     quantidade_linhas = len(codigo.splitlines())
 
-    funcoes = [
-        no.name
-        for no in ast.walk(arvore)
-        if isinstance(no, (ast.FunctionDef, ast.AsyncFunctionDef))
-    ]
+    funcoes = obter_funcoes(arvore)
 
-    classes = [
-        no.name
-        for no in ast.walk(arvore)
-        if isinstance(no, ast.ClassDef)
-    ]
+    classes = obter_classes(arvore)
 
-    importacoes = [
-        no
-        for no in ast.walk(arvore)
-        if isinstance(no, (ast.Import, ast.ImportFrom))
-    ]
+    importacoes = obter_importacoes(arvore)
 
-    sugestoes = []
+    funcoes_grandes = obter_funcoes_grandes(arvore)
 
-    if quantidade_linhas > 100:
-        sugestoes.append(
-            "O código possui muitas linhas. Considere dividi-lo em módulos menores."
-        )
-
-    if not funcoes and quantidade_linhas > 20:
-        sugestoes.append(
-            "Considere organizar partes do código em funções."
-        )
-
-    funcoes_grandes = []
-
-    for no in ast.walk(arvore):
-        if isinstance(no, (ast.FunctionDef, ast.AsyncFunctionDef)):
-            linha_final = getattr(no, "end_lineno", no.lineno)
-            tamanho = linha_final - no.lineno + 1
-
-            if tamanho > 30:
-                funcoes_grandes.append(no.name)
-
-    if funcoes_grandes:
-        nomes = ", ".join(funcoes_grandes)
-
-        sugestoes.append(
-            f"As funções {nomes} possuem muitas linhas e podem ser divididas."
-        )
-
-    if not sugestoes:
-        sugestoes.append(
-            "Não encontrei problemas estruturais evidentes nesta análise inicial."
-        )
+    sugestoes = obter_sugestoes(
+        quantidade_linhas,
+        funcoes,
+        funcoes_grandes,
+    )
 
     nomes_funcoes = ", ".join(funcoes) if funcoes else "nenhuma"
     nomes_classes = ", ".join(classes) if classes else "nenhuma"
 
     texto_sugestoes = "\n".join(
-        f"- {sugestao}"
-        for sugestao in sugestoes
+        f"- {item}"
+        for item in sugestoes
     )
 
     return (
