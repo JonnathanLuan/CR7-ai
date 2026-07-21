@@ -98,5 +98,25 @@
         "data": "20/07/2026 20:53:17",
         "usuario": "analise meu codigo",
         "orion": "Posso analisar seu código, encontrar problemas, sugerir melhorias e explicar cada parte."
+    },
+    {
+        "data": "20/07/2026 21:37:41",
+        "usuario": "analise meu codigo",
+        "orion": "Posso analisar seu código, encontrar problemas, sugerir melhorias e explicar cada parte."
+    },
+    {
+        "data": "20/07/2026 21:39:59",
+        "usuario": "analise meu codigo",
+        "orion": "Análise ainda em desenvolvimento."
+    },
+    {
+        "data": "20/07/2026 21:44:26",
+        "usuario": "analise meu codigo",
+        "orion": "Cole o código que deseja analisar.\nQuando terminar, digite FIM em uma nova linha."
+    },
+    {
+        "data": "20/07/2026 21:44:58",
+        "usuario": "[Código enviado para análise]",
+        "orion": "Análise concluída.\n\nLinhas de código: 6\nFunções encontradas: 1 (somar)\nClasses encontradas: 0 (nenhuma)\nImportações encontradas: 0\n\nSugestões:\n- Não encontrei problemas estruturais evidentes nesta análise inicial."
     }
 ]
