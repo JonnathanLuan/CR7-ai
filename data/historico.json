@@ -118,5 +118,35 @@
         "data": "20/07/2026 21:44:58",
         "usuario": "[Código enviado para análise]",
         "orion": "Análise concluída.\n\nLinhas de código: 6\nFunções encontradas: 1 (somar)\nClasses encontradas: 0 (nenhuma)\nImportações encontradas: 0\n\nSugestões:\n- Não encontrei problemas estruturais evidentes nesta análise inicial."
+    },
+    {
+        "data": "21/07/2026 17:14:49",
+        "usuario": "CR7, analise o arquivo app.py",
+        "orion": "Ainda não sei responder isso."
+    },
+    {
+        "data": "21/07/2026 17:18:05",
+        "usuario": "CR7, analise este código",
+        "orion": "Cole o código que deseja analisar.\nQuando terminar, digite FIM em uma nova linha."
+    },
+    {
+        "data": "21/07/2026 17:18:40",
+        "usuario": "[Código enviado para análise]",
+        "orion": "Análise concluída.\n\nLinhas de código: 2\nFunções encontradas: 1 (somar)\nClasses encontradas: 0 (nenhuma)\nImportações encontradas: 0\n\nSugestões:\n- Não encontrei problemas estruturais evidentes nesta análise inicial."
+    },
+    {
+        "data": "21/07/2026 17:23:34",
+        "usuario": "CR7, analise o arquivo app.py",
+        "orion": "Arquivo analisado: \"app.py\"\n\nAnálise concluída.\n\nLinhas de código: 101\nFunções encontradas: 1 (receber_codigo)\nClasses encontradas: 0 (nenhuma)\nImportações encontradas: 4\n\nSugestões:\n- O código possui muitas linhas. Considere dividi-lo em módulos menores."
+    },
+    {
+        "data": "21/07/2026 17:54:14",
+        "usuario": "CR7, analise o arquivo app.py",
+        "orion": "Arquivo analisado: \"app.py\"\n\nAnálise concluída.\n\nLinhas de código: 101\nFunções encontradas: 1 (receber_codigo)\nClasses encontradas: 0 (nenhuma)\nImportações encontradas: 4\n\nSugestões:\n- O código possui muitas linhas. Considere dividi-lo em módulos menores."
+    },
+    {
+        "data": "21/07/2026 17:55:00",
+        "usuario": "git add .",
+        "orion": "Ainda não sei responder isso."
     }
 ]

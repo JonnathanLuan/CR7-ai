@@ -1,5 +1,7 @@
 import ast
 
+from agentes.ferramentas.analisador_codigo import gerar_arvore
+
 
 MENSAGEM_SOLICITAR_CODIGO = (
     "Cole o código que deseja analisar.\n"
@@ -13,10 +15,10 @@ def analisar_codigo(codigo):
 
     codigo = str(codigo)
 
-    try:
-        arvore = ast.parse(codigo)
+    # Gera a árvore sintática
+    arvore, erro = gerar_arvore(codigo)
 
-    except SyntaxError as erro:
+    if erro:
         linha = erro.lineno or "desconhecida"
         mensagem = erro.msg or "erro de sintaxe"
 
