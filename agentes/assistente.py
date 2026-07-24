@@ -10,6 +10,16 @@ from core.personalidade import (
 )
 from plugins.gerenciador import executar_plugin
 
+# ==========================
+# EXECUTOR DO ASSISTENTE
+# ==========================
+
+from agentes.ferramentas.gerenciador_tarefas import (
+    adicionar_tarefa,
+    listar_tarefas,
+    remover_tarefa,
+    concluir_tarefa,
+)
 
 # ==========================
 # FUNÇÕES AUXILIARES
@@ -222,6 +232,43 @@ def executar_sistema(intencao, dados):
 
     return None
 
+# ==========================
+# EXECUTOR DE TAREFAS
+# ==========================
+
+def executar_tarefas(intencao, dados):
+    """
+    Executa as intenções relacionadas às tarefas.
+    """
+
+    if intencao == "listar_tarefas":
+        return listar_tarefas()
+
+    if intencao == "adicionar_tarefa":
+        descricao = dados.get("descricao")
+
+        if not descricao:
+            return "Não consegui entender a descrição da tarefa."
+
+        return adicionar_tarefa(descricao)
+
+    if intencao == "remover_tarefa":
+        id_tarefa = dados.get("id_tarefa")
+
+        if id_tarefa is None:
+            return "Não consegui identificar o número da tarefa."
+
+        return remover_tarefa(id_tarefa)
+
+    if intencao == "concluir_tarefa":
+        id_tarefa = dados.get("id_tarefa")
+
+        if id_tarefa is None:
+            return "Não consegui identificar o número da tarefa."
+
+        return concluir_tarefa(id_tarefa)
+
+    return None
 
 # ==========================
 # EXECUTOR DO ASSISTENTE
@@ -243,6 +290,15 @@ def executar(intencao, dados=None):
 
     if intencao == "saudacao":
         return resposta_saudacao()
+
+    # -------------------------
+    # TAREFAS
+    # -------------------------
+
+    resposta = executar_tarefas(intencao, dados)
+
+    if resposta is not None:
+     return resposta
 
     # -------------------------
     # SISTEMA
@@ -294,3 +350,4 @@ def executar(intencao, dados=None):
     # -------------------------
 
     return resposta_nao_sei()
+ 

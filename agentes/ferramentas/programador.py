@@ -1,3 +1,5 @@
+import ast
+
 from agentes.ferramentas.analisador_codigo import gerar_arvore
 from agentes.ferramentas.analisador_funcoes import (
     obter_funcoes,
@@ -7,7 +9,8 @@ from agentes.ferramentas.analisador_classes import obter_classes
 from agentes.ferramentas.analisador_imports import obter_importacoes
 from agentes.ferramentas.analisador_complexidade import obter_sugestoes
 from agentes.ferramentas.analisador_detalhes_funcoes import analisar_funcoes
-
+from agentes.ferramentas.analisador_qualidade import avaliar_funcao
+from agentes.ferramentas.analisador_fluxo import explicar_funcao
 
 MENSAGEM_SOLICITAR_CODIGO = (
     "Cole o código que deseja analisar.\n"
@@ -59,7 +62,19 @@ def analisar_codigo(codigo):
     relatorios_funcoes = []
 
     for funcao in detalhes_funcoes:
+        
+        avaliacao = avaliar_funcao(funcao)
+        funcao_ast = next(
+    (
+        node
+        for node in ast.walk(arvore)
+        if isinstance(node, ast.FunctionDef)
+        and node.name == funcao["nome"]
+    ),
+    None,
+)
 
+        explicacao = explicar_funcao(funcao_ast)
         parametros = ", ".join(funcao["parametros"])
 
         if not parametros:
@@ -71,11 +86,27 @@ def analisar_codigo(codigo):
             else "Não"
         )
 
+        observacoes = avaliacao["observacoes"]
+
+        if observacoes:
+            texto_observacoes = "\n".join(
+                f"- {observacao}"
+                for observacao in observacoes
+            )
+        else:
+            texto_observacoes = (
+                "- Nenhuma melhoria básica identificada."
+            )
+
         relatorios_funcoes.append(
             f"Função: {funcao['nome']}\n"
+            f"Objetivo: {explicacao['objetivo']}\n"
             f"Linhas: {funcao['quantidade_linhas']}\n"
             f"Parâmetros: {parametros}\n"
-            f"Docstring: {possui_docstring}"
+            f"Docstring: {possui_docstring}\n"
+            f"Nota de qualidade: {avaliacao['nota']}/10\n"
+            f"Observações:\n"
+            f"{texto_observacoes}"
         )
 
     if relatorios_funcoes:

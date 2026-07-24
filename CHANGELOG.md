@@ -84,4 +84,13 @@ O formato segue o padrão de versionamento por versões Alpha.
 - Explicação detalhada das funções
 - Relatórios inteligentes
 - Sugestões de refatoração
-- Documentação automática
+- Documentação automática 
+
+## CR7 IA 0.3 Alpha
+
+### Novidades
+
+- ✅ Sistema de voz implementado.
+- ✅ CR7 fala todas as respostas.
+- ✅ Saudação falada na inicialização.
+- ✅ Encerramento falado.
