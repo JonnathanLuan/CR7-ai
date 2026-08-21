@@ -1,0 +1,10 @@
+{
+    "nome": "João Pedro",
+    "idade": "40",
+    "cidade": "Recife",
+    "informacoes": {
+        "time": "Sport",
+        "profissão": "coordenadora pedagógica",
+        "filme favorito": "Interestelar"
+    }
+}

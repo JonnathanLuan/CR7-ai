@@ -1,0 +1,131 @@
+# 📄 CHANGELOG
+
+Todas as mudanças importantes do projeto CR7 AI serão documentadas neste arquivo.
+
+O formato segue o padrão de versionamento por versões Alpha.
+
+---
+
+# 🚀 Versão 0.4 Alpha
+
+## Adicionado
+
+### Inteligência conversacional (LLM)
+
+- Integração com LLM externo (OpenAI ou Anthropic, configurável via `.env`)
+- A ORION agora conversa livremente quando o sistema de regras não reconhece o comando
+- Function calling: o LLM pode acionar as ferramentas reais da ORION (tarefas, abrir programas, memória) em vez de só responder em texto
+- Contexto de memória e histórico recente enviados automaticamente ao LLM
+
+### Pesquisa na internet
+
+- Nova ferramenta `buscar_na_internet` (via DuckDuckGo, sem exigir chave de API)
+- Nova ferramenta `ler_pagina_web` para ler o conteúdo completo de uma página
+- O LLM decide sozinho quando pesquisar (tutoriais, "como fazer X", psicologia, notícias, etc.) via function calling
+
+### Banco de dados
+
+- Migração de `data/*.json` para SQLite (`database/orion.db`)
+- Migração automática dos dados antigos na primeira execução
+- Memória, histórico e tarefas agora vivem no mesmo banco relacional
+
+### Tarefas
+
+- Intenções de tarefas (`adicionar`, `listar`, `concluir`, `remover`) agora reconhecidas pelo sistema de regras
+- Gerenciador de tarefas ligado de ponta a ponta (antes existia a ferramenta, mas não era acionada por nenhum comando)
+
+### Voz
+
+- Reconhecimento de fala (entrada por voz) via `SpeechRecognition`
+- Comandos "modo voz" e "modo texto" no loop principal
+
+---
+
+# 🚀 Versão 0.1 Alpha
+
+## Adicionado
+
+- Estrutura inicial do projeto
+- Sistema de memória permanente
+- Histórico de conversas
+- Sistema de personalidade
+- Organização inicial dos diretórios
+- Persistência de dados em JSON
+
+---
+
+# 🚀 Versão 0.2 Alpha
+
+## Adicionado
+
+### NLP
+
+- Normalizador de texto
+- Detector de intenções
+- Extrator de informações
+- Executor de intenções
+- Aprendizado de informações genéricas
+- Integração entre NLP e IA
+
+### Melhorias
+
+- Organização do Core
+- Melhor gerenciamento da memória
+
+---
+
+# 🚀 Versão 0.3 Alpha (Em desenvolvimento)
+
+## Adicionado
+
+### Arquitetura
+
+- Separação entre Core, Agentes e Ferramentas
+- Nova arquitetura modular
+- Organização do projeto para expansão futura
+
+### Agente Programador
+
+- Leitura automática de arquivos Python
+- Análise utilizando AST
+- Contagem de funções
+- Contagem de classes
+- Contagem de importações
+- Detecção de funções extensas
+- Sistema inicial de sugestões de melhoria
+- Modularização dos analisadores
+
+### Ferramentas
+
+- analisador_codigo.py
+- analisador_funcoes.py
+- analisador_classes.py
+- analisador_imports.py
+- analisador_complexidade.py
+- analisador_detalhes_funcoes.py
+
+### Documentação
+
+- Criação do README
+- Início da documentação técnica
+
+## Alterado
+
+- O agente Programador passou a utilizar módulos especializados.
+- O código ficou desacoplado e mais organizado.
+
+## Próximos passos
+
+- Explicação detalhada das funções
+- Relatórios inteligentes
+- Sugestões de refatoração
+- Documentação automática 
+
+## CR7 IA 0.3 Alpha
+
+### Novidades
+
+- ✅ Sistema de voz implementado.
+- ✅ CR7 fala todas as respostas.
+- ✅ Saudação falada na inicialização.
+- ✅ Encerramento falado.
