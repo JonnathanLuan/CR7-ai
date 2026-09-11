@@ -19,19 +19,43 @@ def detectar_intencao(texto):
         return "saudacao"
 
     # -------------------------
+    # CONSULTAR HORA
+    # -------------------------
+
+    if (
+        "que horas sao" in texto
+        or "que hora e" in texto
+        or "qual e a hora" in texto
+        or "me diga a hora" in texto
+        or "me fala a hora" in texto
+        or "me informe a hora" in texto
+        or "poderia me informar a hora" in texto
+        or "poderia me informa a hr" in texto
+        or "que hrs sao" in texto
+    ):
+        return "consultar_hora"
+
+
+
+
+    # -------------------------
     # ABRIR PROGRAMA
     # -------------------------
 
     if (
-        texto.startswith("abra ")
-        or texto.startswith("abrir ")
-        or texto.startswith("abra o ")
-        or texto.startswith("abra a ")
-        or texto.startswith("abrir o ")
-        or texto.startswith("abrir a ")
-    ):
-        return "abrir_programa"
-
+    texto.startswith("abra ")
+    or texto.startswith("abrir ")
+    or texto.startswith("abra o ")
+    or texto.startswith("abra a ")
+    or texto.startswith("abrir o ")
+    or texto.startswith("abrir a ")
+    or "poderia abrir " in texto
+    or "pode abrir " in texto
+    or "consegue abrir " in texto
+    or "quero que abra " in texto
+    or "abre " in texto
+):
+     return "abrir_programa"
     # -------------------------
     # PERGUNTAR NOME
     # -------------------------
@@ -142,5 +166,56 @@ def detectar_intencao(texto):
         or "explique este codigo" in texto
     ):
         return "analisar_codigo"
+
+
+    # -------------------------
+    # LEMBRETES
+    # -------------------------
+
+    if (
+        "me lembre" in texto
+        or "me lembra" in texto
+    ):
+        return "adicionar_lembrete"
+
+
+    # -------------------------
+    # TAREFAS
+    # -------------------------
+
+    if (
+        "listar tarefas" in texto
+        or "minhas tarefas" in texto
+        or "quais sao minhas tarefas" in texto
+        or texto == "tarefas"
+    ):
+        return "listar_tarefas"
+
+    if (
+        texto.startswith("adicionar tarefa ")
+        or texto.startswith("adicione a tarefa ")
+        or texto.startswith("adicione tarefa ")
+        or texto.startswith("criar tarefa ")
+        or texto.startswith("crie a tarefa ")
+        or texto.startswith("nova tarefa ")
+    ):
+        return "adicionar_tarefa"
+
+    if (
+        texto.startswith("concluir tarefa ")
+        or texto.startswith("conclua a tarefa ")
+        or texto.startswith("marcar tarefa ")
+        or texto.startswith("finalizar tarefa ")
+    ):
+        return "concluir_tarefa"
+
+    if (
+        texto.startswith("remover tarefa ")
+        or texto.startswith("remova a tarefa ")
+        or texto.startswith("apagar tarefa ")
+        or texto.startswith("deletar tarefa ")
+        or texto.startswith("excluir tarefa ")
+    ):
+        return "remover_tarefa"
 
     return "desconhecida"

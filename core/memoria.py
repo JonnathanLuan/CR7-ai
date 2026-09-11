@@ -1,22 +1,59 @@
-import json
-import os
+"""
+Memória permanente da ORION.
 
-ARQUIVO = "data/memoria.json"
+Mantém a mesma interface pública de antes (carregar_memoria /
+salvar_memoria), mas agora apoiada em SQLite (core/banco.py)
+em vez de um arquivo JSON solto.
+"""
+
+from core import banco
 
 
 def carregar_memoria():
-    if not os.path.exists(ARQUIVO):
-        return {}
+    """
+    Carrega toda a memória no mesmo formato que o restante do
+    projeto já espera: um dicionário com chaves diretas
+    (nome, idade, cidade, ...) e uma sub-chave "informacoes"
+    para os dados genéricos aprendidos com o usuário.
+    """
 
-    try:
-        with open(ARQUIVO, "r", encoding="utf-8") as arquivo:
-            return json.load(arquivo)
-    except (json.JSONDecodeError, FileNotFoundError):
-        return {}
+    memoria = {"informacoes": {}}
+
+    with banco.conectar() as conexao:
+        linhas = conexao.execute("SELECT chave, valor FROM memoria").fetchall()
+
+    for linha in linhas:
+        chave = linha["chave"]
+        valor = linha["valor"]
+
+        if chave.startswith("info:"):
+            memoria["informacoes"][chave[len("info:"):]] = valor
+        else:
+            memoria[chave] = valor
+
+    return memoria
 
 
 def salvar_memoria(memoria):
-    os.makedirs(os.path.dirname(ARQUIVO), exist_ok=True)
+    """
+    Persiste o dicionário de memória inteiro no banco,
+    substituindo o conteúdo salvo anteriormente.
+    """
 
-    with open(ARQUIVO, "w", encoding="utf-8") as arquivo:
-        json.dump(memoria, arquivo, indent=4, ensure_ascii=False) 
+    informacoes = memoria.get("informacoes", {}) or {}
+
+    with banco.conectar() as conexao:
+        for chave, valor in memoria.items():
+            if chave == "informacoes" or valor is None:
+                continue
+
+            conexao.execute(
+                "INSERT OR REPLACE INTO memoria (chave, valor) VALUES (?, ?)",
+                (chave, str(valor)),
+            )
+
+        for chave, valor in informacoes.items():
+            conexao.execute(
+                "INSERT OR REPLACE INTO memoria (chave, valor) VALUES (?, ?)",
+                (f"info:{chave}", str(valor)),
+            )
