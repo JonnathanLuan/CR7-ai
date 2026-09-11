@@ -28,6 +28,14 @@ __pycache__/
 
 
 # ==========================
+# BANCO DE DADOS LOCAL
+# ==========================
+
+database/*.db
+database/*.sqlite3
+
+
+# ==========================
 # EDITORES
 # ==========================
 
@@ -79,3 +87,11 @@ dist/
 
 *.bak
 *.backup
+# Dados locais e privados do ORION
+data/
+database/
+*.db
+
+# Instaladores locais
+*.exe
+*.msix

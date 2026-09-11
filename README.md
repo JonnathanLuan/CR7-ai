@@ -1,281 +1,84 @@
-# 🤖 CR7 AI
+# 🤖 ORION — CR7 IA
 
-> **Uma plataforma de Inteligência Artificial modular desenvolvida em Python para atuar como assistente pessoal, programador, pesquisador e executor de tarefas.**
+> Plataforma modular de Inteligência Artificial desenvolvida em Python.
 
-![Status](https://img.shields.io/badge/status-Em%20Desenvolvimento-orange)
-![Python](https://img.shields.io/badge/Python-3.11+-blue)
-![Version](https://img.shields.io/badge/version-0.3%20Alpha-green)
+**Versão:** 0.5 Alpha — Núcleo Inteligente  
+**Autor:** Jonnathan Luan
 
----
+## Visão
 
-# 📖 Sobre
+O ORION está sendo construído como uma plataforma de assistente de IA, e não apenas como um chatbot. A arquitetura combina Core, Runtime, Router, Agentes, Ferramentas, Memória, Plugins e provedores de LLM.
 
-O **CR7 AI** é um projeto de Inteligência Artificial criado para evoluir continuamente através de uma arquitetura modular baseada em **Core**, **Agentes**, **Ferramentas** e **Plugins**.
+## O que mudou no 0.5
 
-Mais do que um chatbot, o objetivo do CR7 AI é tornar-se uma plataforma completa capaz de auxiliar pessoas em programação, organização pessoal, estudos, pesquisas e automação de tarefas.
+- Runtime com contexto de execução.
+- Resultado padronizado para operações internas.
+- Router central.
+- Registro único de ferramentas.
+- Schemas reutilizáveis para function calling.
+- Base de agentes.
+- Camada inicial de segurança.
+- Suporte arquitetural a Ollama, Gemini, OpenAI e Anthropic.
+- Testes automatizados do núcleo.
 
-Todo o projeto está sendo desenvolvido com foco em organização, escalabilidade e aprendizado contínuo.
+## Estrutura
 
----
-
-# ✨ Objetivos
-
-O CR7 AI está sendo desenvolvido para ser capaz de:
-
-- 🧠 Aprender continuamente
-- 💬 Conversar naturalmente
-- 👤 Atuar como assistente pessoal
-- 👨‍💻 Auxiliar no desenvolvimento de software
-- 📚 Pesquisar informações
-- 🌐 Utilizar serviços online
-- 🎙 Conversar por voz
-- 👁 Interpretar imagens e documentos
-- 🖥 Automatizar tarefas do computador
-- 🔌 Trabalhar através de plugins
-- 🤖 Utilizar agentes especializados
-
----
-
-# 🏗 Arquitetura
-
-```
-CR7 AI
-│
-├── Core
-│   ├── IA
-│   ├── Memória
-│   ├── NLP
-│   └── Configuração
-│
-├── Agentes
-│   ├── Programador
-│   ├── Pesquisador
-│   ├── Escritor
-│   ├── Planejador
-│   └── ...
-│
-├── Ferramentas
-│   ├── AST
-│   ├── Arquivos
-│   ├── Git
-│   ├── Terminal
-│   └── ...
-│
-├── Plugins
-│
-├── Dados
-│
-├── Documentação
-│
-└── Testes
-```
-
----
-
-# 📁 Estrutura
-
-```
-CR7-AI/
-│
+```text
+ORION/
 ├── app.py
 ├── config.py
-├── requirements.txt
-│
 ├── core/
+│   ├── runtime/
+│   ├── router/
+│   ├── llm/
+│   ├── security/
+│   ├── ferramentas/
+│   ├── conhecimento/
+│   ├── nlp/
+│   ├── memoria.py
+│   └── banco.py
 ├── agentes/
+├── tools/
 ├── plugins/
-├── dados/
+├── tests/
 ├── docs/
-├── testes/
-└── logs/
+└── database/
 ```
 
----
+## Configuração
 
-# 🚀 Funcionalidades atuais
+1. Crie um ambiente virtual.
+2. Instale as dependências:
 
-## 🧠 Núcleo
+```bash
+pip install -r requirements.txt
+```
 
-- ✅ Memória permanente
-- ✅ Histórico de conversas
-- ✅ Personalidade
-- ✅ Persistência em JSON
+3. Copie `.env.example` para `.env` e configure o provedor.
+4. Para Ollama, deixe o serviço local ativo e configure `MODELO_OLLAMA`.
+5. Para Gemini/OpenAI/Anthropic, informe a chave no `.env`.
 
----
+> O arquivo `.env` real nunca deve ser enviado ao GitHub.
 
-## 💬 NLP
+## Execução
 
-- ✅ Normalizador
-- ✅ Detector de intenções
-- ✅ Extrator de informações
-- ✅ Executor de intenções
-- ✅ Aprendizado de informações
+```bash
+python app.py
+```
 
----
+## Testes
 
-## 👨‍💻 Agente Programador
+```bash
+python -m pytest -q
+```
 
-- ✅ Leitura de arquivos Python
-- ✅ Análise utilizando AST
-- ✅ Contagem de funções
-- ✅ Contagem de classes
-- ✅ Contagem de importações
-- ✅ Sistema de sugestões
-- ✅ Arquitetura modular
+## Documentação
 
----
+- `docs/ARQUITETURA.md` — arquitetura do núcleo.
+- `docs/AGENTES.md` — modelo de agentes.
+- `ROADMAP.md` — próximas versões.
+- `CHANGELOG.md` — histórico.
 
-# 🚧 Em desenvolvimento
+## Próxima etapa
 
-- Explicação inteligente de funções
-- Relatórios de código
-- Melhorias automáticas
-- Documentação automática
-- Refatoração assistida
-
----
-
-# 🔮 Funcionalidades planejadas
-
-## 🎙 Assistente de Voz
-
-- Reconhecimento de fala
-- Síntese de voz
-- Palavra de ativação
-- Conversação contínua
-
-### 👤 Assistente Pessoal
-
-- Agenda
-- Calendário
-- Lista de tarefas
-- Lembretes
-- Organização diária
-- Rotinas inteligentes
-
-### 🌐 Inteligência Online
-
-- Pesquisa na internet
-- Notícias
-- Clima
-- APIs
-- Busca em documentação
-
-### 👁 Visão Computacional
-
-- OCR
-- Leitura de imagens
-- Leitura de PDFs
-- Captura de tela
-- Interpretação de gráficos
-
-### 🖥 Automação
-
-- Controle do Windows
-- VS Code
-- Terminal
-- Navegador
-- Gerenciamento de arquivos
-
-### 🧠 Inteligência
-
-- Memória de longo prazo
-- Contexto entre conversas
-- Aprendizado supervisionado
-- Perfis de usuários
-- Personalidades configuráveis
-
-### 🤖 Sistema de Agentes
-
-- Agente Programador
-- Agente Pesquisador
-- Agente Escritor
-- Agente Professor
-- Agente Planejador
-- Agente Analista
-- Agente Financeiro
-
-### 🔌 Plugins
-
-- Instalação dinâmica
-- Atualização automática
-- Plugins oficiais
-- Plugins da comunidade
-
-### 📱 Plataformas
-
-- Desktop
-- Web
-- Android
-- iOS
-- API REST
-
----
-
-# 📚 Documentação
-
-A documentação do projeto está organizada nos seguintes arquivos:
-
-| Documento | Descrição |
-|-----------|-----------|
-| README.md | Visão geral do projeto |
-| CHANGELOG.md | Histórico das versões |
-| ROADMAP.md | Planejamento das próximas versões |
-
-Documentação em desenvolvimento:
-
-- VISION.md
-- ARCHITECTURE.md
-- AGENTS.md
-- DEVLOG.md
-
----
-
-# 🛠 Tecnologias
-
-Atualmente
-
-- Python
-- JSON
-- Git
-- GitHub
-
-Planejado
-
-- SQLite
-- FastAPI
-- Ollama
-- OpenAI API
-- Speech Recognition
-- Text-to-Speech
-
----
-
-# 🎯 Objetivo Final
-
-Construir uma plataforma completa de Inteligência Artificial capaz de atuar como:
-
-- Assistente Pessoal
-- Programador
-- Pesquisador
-- Professor
-- Organizador
-- Executor de tarefas
-
-Tudo isso através de uma arquitetura modular baseada em **Core**, **Agentes** e **Plugins**.
-
----
-
-# 👨‍💻 Autor
-
-**Jonnathan Luan**
-
-Projeto desenvolvido em Python.
-
-Arquitetura e desenvolvimento com apoio do ChatGPT.
-
----
-
-# 📄 Licença
-
-Este projeto encontra-se em desenvolvimento e ainda não possui uma licença definitiva.
+**0.6 — Memória Inteligente:** separar memória de sessão, memória permanente e recuperação de informações relevantes.

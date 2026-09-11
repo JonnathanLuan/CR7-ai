@@ -1,32 +1,28 @@
-import json
-from pathlib import Path
+"""
+Gerenciador de tarefas da ORION — agora em SQLite (core/banco.py)
+em vez de data/tarefas.json.
+"""
 
+from datetime import datetime
 
-ARQUIVO_TAREFAS = Path("data/tarefas.json")
+from core import banco
 
 
 def carregar_tarefas():
-    if not ARQUIVO_TAREFAS.exists():
-        return []
+    with banco.conectar() as conexao:
+        linhas = conexao.execute(
+            "SELECT id, descricao, concluida FROM tarefas ORDER BY id ASC"
+        ).fetchall()
 
-    try:
-        with open(ARQUIVO_TAREFAS, "r", encoding="utf-8") as arquivo:
-            return json.load(arquivo)
+    return [
+        {
+            "id": linha["id"],
+            "descricao": linha["descricao"],
+            "concluida": bool(linha["concluida"]),
+        }
+        for linha in linhas
+    ]
 
-    except (json.JSONDecodeError, OSError):
-        return []
-
-
-def salvar_tarefas(tarefas):
-    ARQUIVO_TAREFAS.parent.mkdir(parents=True, exist_ok=True)
-
-    with open(ARQUIVO_TAREFAS, "w", encoding="utf-8") as arquivo:
-        json.dump(
-            tarefas,
-            arquivo,
-            ensure_ascii=False,
-            indent=4,
-        )
 
 def adicionar_tarefa(descricao):
     descricao = str(descricao).strip()
@@ -34,26 +30,45 @@ def adicionar_tarefa(descricao):
     if not descricao:
         return "A descrição da tarefa não pode ficar vazia."
 
-    tarefas = carregar_tarefas()
+    with banco.conectar() as conexao:
+        conexao.execute(
+            "INSERT INTO tarefas (descricao, concluida, criada_em) VALUES (?, 0, ?)",
+            (descricao, datetime.now().strftime("%d/%m/%Y %H:%M:%S")),
+        )
 
-    novo_id = 1
+    return f'Tarefa adicionada: "{descricao}".'
 
-    if tarefas:
-        novo_id = max(
-            tarefa["id"]
-            for tarefa in tarefas
-        ) + 1
 
-    nova_tarefa = {
-        "id": novo_id,
-        "descricao": descricao,
-        "concluida": False,
-    }
+def adicionar_lembrete(descricao, lembrar_em):
+    descricao = str(descricao).strip()
 
-    tarefas.append(nova_tarefa)
-    salvar_tarefas(tarefas)
+    if not descricao or not lembrar_em:
+        return "Não consegui criar o lembrete."
 
-    return f'Tarefa adicionada: "{descricao}".'    
+    with banco.conectar() as conexao:
+        conexao.execute(
+            """
+            INSERT INTO tarefas
+            (descricao, concluida, criada_em, lembrar_em, avisada)
+            VALUES (?, 0, ?, ?, 0)
+            """,
+            (
+                descricao,
+                datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                lembrar_em,
+            ),
+        )
+
+    horario = datetime.strptime(
+        lembrar_em,
+        "%Y-%m-%d %H:%M:%S"
+    )
+
+    return (
+        f"Lembrete criado: {descricao}, "
+        f"às {horario.strftime('%H:%M')}."
+    )
+
 
 def listar_tarefas():
     tarefas = carregar_tarefas()
@@ -65,54 +80,28 @@ def listar_tarefas():
 
     for tarefa in tarefas:
         status = "Concluída" if tarefa["concluida"] else "Pendente"
+        linhas.append(f'{tarefa["id"]}. {tarefa["descricao"]} - {status}')
 
-        linhas.append(
-            f'{tarefa["id"]}. {tarefa["descricao"]} - {status}'
-        )
+    return "\n".join(linhas)
 
-    return "\n".join(linhas) 
 
 def remover_tarefa(id_tarefa):
-    tarefas = carregar_tarefas()
+    with banco.conectar() as conexao:
+        cursor = conexao.execute("DELETE FROM tarefas WHERE id = ?", (id_tarefa,))
 
-    for tarefa in tarefas:
+    if cursor.rowcount == 0:
+        return "Tarefa não encontrada."
 
-        if tarefa["id"] == id_tarefa:
+    return "Tarefa removida com sucesso."
 
-            tarefas.remove(tarefa)
-
-            salvar_tarefas(tarefas)
-
-            return "Tarefa removida com sucesso."
-
-    return "Tarefa não encontrada."   
-
-def remover_tarefa(id_tarefa):
-    tarefas = carregar_tarefas()
-
-    for tarefa in tarefas:
-
-        if tarefa["id"] == id_tarefa:
-
-            tarefas.remove(tarefa)
-
-            salvar_tarefas(tarefas)
-
-            return "Tarefa removida com sucesso."
-
-    return "Tarefa não encontrada."
 
 def concluir_tarefa(id_tarefa):
-    tarefas = carregar_tarefas()
+    with banco.conectar() as conexao:
+        cursor = conexao.execute(
+            "UPDATE tarefas SET concluida = 1 WHERE id = ?", (id_tarefa,)
+        )
 
-    for tarefa in tarefas:
+    if cursor.rowcount == 0:
+        return "Tarefa não encontrada."
 
-        if tarefa["id"] == id_tarefa:
-
-            tarefa["concluida"] = True
-
-            salvar_tarefas(tarefas)
-
-            return "Tarefa concluída com sucesso."
-
-    return "Tarefa não encontrada."
+    return "Tarefa concluída com sucesso."

@@ -1,5 +1,5 @@
 import re
-
+from core.agenda import extrair_lembrete
 
 def limpar_valor(valor):
     """
@@ -177,34 +177,95 @@ def extrair_chave_consulta(frase):
 
 def extrair_programa(frase):
     """
-    Extrai o nome do programa que o usuário deseja abrir.
+    Extrai o nome do programa mesmo em frases naturais.
 
     Exemplos:
-        Abra o bloco de notas.
-        Abra a calculadora.
-        Abrir o Paint.
+        Abra o Paint.
+        Poderia abrir o Paint?
+        CR7, poderia abrir o Paint para mim?
+        Consegue abrir a calculadora?
+    """
+
+    frase_original = frase.strip()
+
+    padroes = [
+        r"(?:cr7[\s,]*)?poderia abrir\s+(?:o |a )?(.+)",
+        r"(?:cr7[\s,]*)?pode abrir\s+(?:o |a )?(.+)",
+        r"(?:cr7[\s,]*)?consegue abrir\s+(?:o |a )?(.+)",
+        r"(?:cr7[\s,]*)?quero que abra\s+(?:o |a )?(.+)",
+        r"(?:cr7[\s,]*)?abra\s+(?:o |a )?(.+)",
+        r"(?:cr7[\s,]*)?abre\s+(?:o |a )?(.+)",
+        r"(?:cr7[\s,]*)?abrir\s+(?:o |a )?(.+)",
+    ]
+
+    for padrao in padroes:
+        resultado = re.search(padrao, frase_original, flags=re.IGNORECASE)
+
+        if resultado:
+            programa = resultado.group(1)
+
+            # Remove expressões de cortesia no final
+            programa = re.sub(
+                r"\s+(por favor|pra mim|para mim)[\s.!?]*$",
+                "",
+                programa,
+                flags=re.IGNORECASE,
+            )
+
+            programa = limpar_valor(programa)
+            programa = programa.lower()
+
+            if programa:
+                return programa
+
+    return None
+
+
+def extrair_descricao_tarefa(frase):
+    """
+    Extrai a descrição de uma nova tarefa.
+
+    Exemplos:
+        Adicionar tarefa Comprar pão.
+        Criar tarefa Estudar Python.
     """
 
     frase_original = frase.strip()
     frase_minuscula = frase_original.lower()
 
     padroes = [
-        "abra o ",
-        "abra a ",
-        "abra ",
-        "abrir o ",
-        "abrir a ",
-        "abrir ",
+        "adicionar tarefa ",
+        "adicione a tarefa ",
+        "adicione tarefa ",
+        "criar tarefa ",
+        "crie a tarefa ",
+        "nova tarefa ",
     ]
 
     for padrao in padroes:
         if frase_minuscula.startswith(padrao):
-            programa = frase_original[len(padrao):]
-            programa = limpar_valor(programa)
-            programa = programa.lower()
+            descricao = frase_original[len(padrao):]
+            descricao = limpar_valor(descricao)
 
-            if programa:
-                return programa
+            if descricao:
+                return descricao
+
+    return None
+
+
+def extrair_id_tarefa(frase):
+    """
+    Extrai o número (ID) de uma tarefa citada na frase.
+
+    Exemplos:
+        Concluir tarefa 3.
+        Remover tarefa 1.
+    """
+
+    resultado = re.search(r"(\d+)", frase)
+
+    if resultado:
+        return int(resultado.group(1))
 
     return None
 
@@ -252,5 +313,25 @@ def extrair_dados(intencao, frase):
 
         if programa:
             dados["programa"] = programa
+
+        elif intencao == "adicionar_lembrete":
+           lembrete = extrair_lembrete(frase)
+
+        if lembrete:
+            dados["descricao"] = lembrete["descricao"]
+            dados["lembrar_em"] = lembrete["lembrar_em"]
+
+
+    elif intencao == "adicionar_tarefa":
+        descricao = extrair_descricao_tarefa(frase)
+
+        if descricao:
+            dados["descricao"] = descricao
+
+    elif intencao in ("concluir_tarefa", "remover_tarefa"):
+        id_tarefa = extrair_id_tarefa(frase)
+
+        if id_tarefa is not None:
+            dados["id_tarefa"] = id_tarefa
 
     return dados

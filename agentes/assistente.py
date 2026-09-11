@@ -1,7 +1,7 @@
 # ==========================
 # IMPORTAÇÕES
 # ==========================
-
+from datetime import datetime
 from core.memoria import carregar_memoria, salvar_memoria
 from core.personalidade import (
     resposta_aprendeu,
@@ -16,6 +16,7 @@ from plugins.gerenciador import executar_plugin
 
 from agentes.ferramentas.gerenciador_tarefas import (
     adicionar_tarefa,
+    adicionar_lembrete,
     listar_tarefas,
     remover_tarefa,
     concluir_tarefa,
@@ -244,6 +245,16 @@ def executar_tarefas(intencao, dados):
     if intencao == "listar_tarefas":
         return listar_tarefas()
 
+
+    if intencao == "adicionar_lembrete":
+        descricao = dados.get("descricao")
+        lembrar_em = dados.get("lembrar_em")
+
+        if not descricao or not lembrar_em:
+            return "Não consegui entender a data, o horário ou o lembrete."
+
+        return adicionar_lembrete(descricao, lembrar_em)
+
     if intencao == "adicionar_tarefa":
         descricao = dados.get("descricao")
 
@@ -299,6 +310,22 @@ def executar(intencao, dados=None):
 
     if resposta is not None:
      return resposta
+
+    # -------------------------
+    # HORA ATUAL
+    # -------------------------
+
+    if intencao == "consultar_hora":
+        agora = datetime.now()
+
+        hora = agora.hour
+        minuto = agora.minute
+
+        if minuto == 0:
+            return f"Agora são {hora} horas."
+
+        return f"Agora são {hora} horas e {minuto:02d} minutos."
+
 
     # -------------------------
     # SISTEMA
