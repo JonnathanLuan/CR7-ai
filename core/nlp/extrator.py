@@ -370,6 +370,10 @@ def extrair_dados(intencao, frase):
         if consulta:
             dados["consulta"] = consulta
 
+    elif intencao == "planejar":
+        dados["pedido"] = frase.strip()
+
+
     elif intencao in ("concluir_tarefa", "remover_tarefa"):
         id_tarefa = extrair_id_tarefa(frase)
 

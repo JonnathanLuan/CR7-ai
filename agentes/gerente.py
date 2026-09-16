@@ -4,13 +4,14 @@ from agentes import (
     assistente,
     pesquisador,
     programador,
+    planejador,
 )
-
 
 AGENTES = {
     "assistente": assistente.executar,
     "programador": programador.executar,
     "pesquisador": pesquisador.executar,
+    "planejador": planejador.executar,
 }
 
 
@@ -31,7 +32,8 @@ MAPA_AGENTES = {
     "concluir_tarefa": "assistente",
     "remover_tarefa": "assistente",
     "adicionar_lembrete": "assistente",
-
+        # Planejador
+    "planejar": "planejador",
     # Programador
     "analisar_codigo": "programador",
 

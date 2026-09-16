@@ -235,5 +235,25 @@ def detectar_intencao(texto):
     ):
         return "pesquisar_internet"
 
+    # -------------------------
+    # PLANEJAMENTO
+    # -------------------------
+
+    if (
+        texto.startswith("planeje ")
+        or texto.startswith("planejar ")
+        or texto.startswith("crie um plano ")
+        or texto.startswith("criar um plano ")
+        or texto.startswith("monte um plano ")
+        or texto.startswith("monte um cronograma ")
+        or texto.startswith("crie um cronograma ")
+        or texto.startswith("organize meus estudos ")
+        or texto.startswith("organize meu estudo ")
+        or texto.startswith("organize minha rotina ")
+        or texto.startswith("planeje meus estudos ")
+        or texto.startswith("planeje minha rotina ")
+    ):
+        return "planejar"
+
 
     return "desconhecida"
