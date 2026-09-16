@@ -5,6 +5,8 @@ from agentes import (
     pesquisador,
     programador,
     planejador,
+    observador,
+    editor,
 )
 
 AGENTES = {
@@ -12,6 +14,9 @@ AGENTES = {
     "programador": programador.executar,
     "pesquisador": pesquisador.executar,
     "planejador": planejador.executar,
+    "observador": observador.executar,
+
+    "editor": editor.executar,
 }
 
 
@@ -36,9 +41,13 @@ MAPA_AGENTES = {
     "planejar": "planejador",
     # Programador
     "analisar_codigo": "programador",
+        # Observador
+    "observar_conteudo": "observador",
 
     # Pesquisador
     "pesquisar_internet": "pesquisador",
+        # Editor
+    "preparar_edicao": "editor",
 }
 
 
