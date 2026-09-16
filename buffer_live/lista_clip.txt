@@ -1,0 +1,4 @@
+file 'C:/Users/jonna/Desktop/ORION-GitHub/buffer_live/parte_000.ts'
+file 'C:/Users/jonna/Desktop/ORION-GitHub/buffer_live/parte_001.ts'
+file 'C:/Users/jonna/Desktop/ORION-GitHub/buffer_live/parte_002.ts'
+file 'C:/Users/jonna/Desktop/ORION-GitHub/buffer_live/parte_003.ts'
