@@ -95,3 +95,6 @@ database/
 # Instaladores locais
 *.exe
 *.msix
+
+buffer_live/
+clips/
