@@ -8,7 +8,7 @@ load_dotenv()
 # INFORMAÇÕES GERAIS
 # ==========================
 
-NOME = "CR7 IA"
+NOME = "Orion"
 
 VERSAO = "0.5 Alpha - Núcleo"
 

@@ -314,13 +314,12 @@ def extrair_dados(intencao, frase):
         if programa:
             dados["programa"] = programa
 
-        elif intencao == "adicionar_lembrete":
-           lembrete = extrair_lembrete(frase)
+    elif intencao == "adicionar_lembrete":
+        lembrete = extrair_lembrete(frase)
 
         if lembrete:
             dados["descricao"] = lembrete["descricao"]
             dados["lembrar_em"] = lembrete["lembrar_em"]
-
 
     elif intencao == "adicionar_tarefa":
         descricao = extrair_descricao_tarefa(frase)
