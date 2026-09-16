@@ -218,4 +218,22 @@ def detectar_intencao(texto):
     ):
         return "remover_tarefa"
 
+    # -------------------------
+    # PESQUISA NA INTERNET
+    # -------------------------
+
+    if (
+        texto.startswith("pesquise ")
+        or texto.startswith("pesquisar ")
+        or texto.startswith("procure ")
+        or texto.startswith("buscar ")
+        or texto.startswith("busque ")
+        or texto.startswith("pesquise na internet ")
+        or texto.startswith("procure na internet ")
+        or texto.startswith("busque na internet ")
+        or texto.startswith("o que ha de novo sobre ")
+    ):
+        return "pesquisar_internet"
+
+
     return "desconhecida"

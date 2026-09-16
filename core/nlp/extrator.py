@@ -269,6 +269,43 @@ def extrair_id_tarefa(frase):
 
     return None
 
+def extrair_consulta_pesquisa(frase):
+    """
+    Extrai o assunto que o usuário deseja pesquisar.
+    """
+
+    frase_original = frase.strip()
+    frase_minuscula = frase_original.lower()
+
+    padroes = [
+        "pesquise na internet sobre ",
+        "procure na internet sobre ",
+        "busque na internet sobre ",
+        "pesquise na internet ",
+        "procure na internet ",
+        "busque na internet ",
+        "o que há de novo sobre ",
+        "o que ha de novo sobre ",
+        "pesquise sobre ",
+        "procure sobre ",
+        "busque sobre ",
+        "pesquise ",
+        "pesquisar ",
+        "procure ",
+        "buscar ",
+        "busque ",
+    ]
+
+    for padrao in padroes:
+        if frase_minuscula.startswith(padrao):
+            consulta = frase_original[len(padrao):].strip()
+
+            if consulta:
+                return consulta
+
+    return None
+
+
 
 def extrair_dados(intencao, frase):
     """
@@ -326,6 +363,12 @@ def extrair_dados(intencao, frase):
 
         if descricao:
             dados["descricao"] = descricao
+
+    elif intencao == "pesquisar_internet":
+        consulta = extrair_consulta_pesquisa(frase)
+
+        if consulta:
+            dados["consulta"] = consulta
 
     elif intencao in ("concluir_tarefa", "remover_tarefa"):
         id_tarefa = extrair_id_tarefa(frase)

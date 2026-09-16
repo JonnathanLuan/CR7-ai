@@ -1,30 +1,20 @@
 """
-Pesquisa na internet da ORION.
-
-Duas ferramentas:
-  - buscar_na_internet: faz uma busca (estilo Google) e devolve
-    títulos, links e resumos dos resultados.
-  - ler_pagina_web: abre uma URL específica e extrai o texto
-    principal da página, para leitura mais profunda.
-
-Usa o DuckDuckGo (via `duckduckgo_search`) porque não exige
-nenhuma chave de API — funciona direto após instalar a lib.
+Ferramentas de pesquisa na internet do ORION.
 """
-
-import re
 
 import requests
 from bs4 import BeautifulSoup
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 
-TAMANHO_MAXIMO_PAGINA = 4000  # caracteres, pra não estourar o contexto do LLM
+
 TIMEOUT_SEGUNDOS = 10
+TAMANHO_MAXIMO_PAGINA = 4000
 
 
 def buscar_na_internet(consulta, max_resultados=5):
     """
-    Busca `consulta` na internet e devolve uma lista de
-    dicionários com 'titulo', 'link' e 'resumo'.
+    Pesquisa na internet e retorna uma lista
+    com título, link e resumo.
     """
 
     consulta = str(consulta).strip()
@@ -34,9 +24,18 @@ def buscar_na_internet(consulta, max_resultados=5):
 
     try:
         with DDGS() as motor:
-            resultados = list(motor.text(consulta, region="br-pt", max_results=max_resultados))
-    except Exception as erro:  # noqa: BLE001
-        return f"Não consegui pesquisar agora (erro: {erro})."
+            resultados = motor.text(
+                consulta,
+                region="br-pt",
+                max_results=max_resultados,
+                backend="auto",
+            )
+
+    except Exception as erro:
+        return (
+            "Não consegui pesquisar agora. "
+            f"Erro: {erro}"
+        )
 
     if not resultados:
         return "Não encontrei nenhum resultado para essa busca."
@@ -57,37 +56,61 @@ def buscar_na_internet(consulta, max_resultados=5):
 
 def ler_pagina_web(url):
     """
-    Baixa uma página e devolve o texto principal (sem HTML,
-    scripts, menus, etc.), truncado para não ficar gigante.
+    Abre uma página da internet e extrai texto legível.
     """
 
     url = str(url).strip()
 
     if not url.startswith(("http://", "https://")):
-        return "URL inválida. Preciso de um link completo (começando com http:// ou https://)."
+        return "URL inválida."
 
-    cabecalhos = {"User-Agent": "Mozilla/5.0 (compatible; ORION-Bot/1.0)"}
+    cabecalhos = {
+        "User-Agent": "Mozilla/5.0 ORION/1.0"
+    }
 
     try:
-        resposta = requests.get(url, headers=cabecalhos, timeout=TIMEOUT_SEGUNDOS)
+        resposta = requests.get(
+            url,
+            headers=cabecalhos,
+            timeout=TIMEOUT_SEGUNDOS,
+        )
+
         resposta.raise_for_status()
+
     except requests.RequestException as erro:
-        return f"Não consegui abrir essa página (erro: {erro})."
+        return (
+            "Não consegui abrir essa página. "
+            f"Erro: {erro}"
+        )
 
-    sopa = BeautifulSoup(resposta.text, "html.parser")
+    sopa = BeautifulSoup(
+        resposta.text,
+        "html.parser",
+    )
 
-    for indesejado in sopa(["script", "style", "nav", "footer", "header", "noscript"]):
-        indesejado.decompose()
+    for elemento in sopa(
+        [
+            "script",
+            "style",
+            "nav",
+            "footer",
+            "header",
+            "noscript",
+        ]
+    ):
+        elemento.decompose()
 
-    texto = sopa.get_text(separator="\n")
-    texto = re.sub(r"\n{2,}", "\n", texto)
-    texto = re.sub(r"[ \t]{2,}", " ", texto)
-    texto = texto.strip()
+    texto = " ".join(
+        sopa.stripped_strings
+    )
 
     if not texto:
-        return "A página abriu, mas não encontrei texto legível nela."
+        return "Não encontrei texto legível nessa página."
 
     if len(texto) > TAMANHO_MAXIMO_PAGINA:
-        texto = texto[:TAMANHO_MAXIMO_PAGINA] + "\n[...conteúdo truncado...]"
+        texto = (
+            texto[:TAMANHO_MAXIMO_PAGINA]
+            + "..."
+        )
 
     return texto
