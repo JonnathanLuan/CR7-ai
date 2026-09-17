@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 from agentes.captura_live import verificar_live
+from agentes.analisador_audio import analisar_buffer, detectar_reacoes
 
 
 class BufferLive:
@@ -189,6 +190,31 @@ class BufferLive:
         )
 
         return arquivos
+
+    def analisar_audio(self):
+        """
+        Analisa o áudio dos segmentos atuais do buffer
+        e procura possíveis reações.
+        """
+
+        analises = analisar_buffer(
+            str(self.pasta)
+        )
+
+        reacoes = detectar_reacoes(
+            analises
+        )
+
+        return {
+            "status": "analise_concluida",
+            "segmentos_analisados": len(
+                analises
+            ),
+            "reacoes_detectadas": len(
+                reacoes
+            ),
+            "reacoes": reacoes,
+        }
 
     def parar(self):
         """
